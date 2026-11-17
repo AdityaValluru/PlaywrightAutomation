@@ -8,7 +8,7 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
 ## Steps
 
 1. Check that `02-scenarios.md` and `03-test-plan.md` both have status `Approved`. If not, stop and say so.
-2. Open `docs/features/<feature>/test-cases.xlsx`. If it does not exist, copy `docs/features/_template/test-cases.xlsx` there. If a lock file such as `~$test-cases.xlsx` exists, the file is open in Excel: stop and ask the human to close it.
+2. Open `docs/features/<feature>/test-cases.xlsx`. If it does not exist, copy `docs/features/_template/test-cases.xlsx` there. If a lock file exists next to the workbook (`~$test-cases.xlsx` from Excel, or `.~lock.test-cases.xlsx#` from LibreOffice), the file is open: stop and ask the human to save and close it.
 3. Remind the human to commit the current workbook first, so the previous version can be recovered.
 4. Read the existing rows before writing. Add new rows only below the last used row and continue IDs from the highest `TC-` number. Do not touch existing rows.
 5. Fill these columns for each new row:
@@ -21,7 +21,7 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
    | Automate | Yes or No, from the plan |
    | Preconditions, Test Data | State before the test and the values or where they come from |
    | Steps | Numbered, one user action per line, inside the one cell |
-   | Expected Result | States the final outcome of the test; specific and observable |
+   | Expected Result | Specific and observable |
    | Expected Result Source | The SRS section it comes from |
    | Cleanup | How to return to a clean state |
    | Origin, Status | `AI`, `Draft` |
@@ -33,7 +33,6 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
 ## Rules
 
 - Expected results come from the SRS, never from guessing how the app behaves. If the SRS does not say, write `UNSPECIFIED: needs human decision` and do not invent a value.
-- Expected Result must state the final outcome of the test. Each expected result must be something an assertion can check (text, state, visibility, count, URL). Avoid "works correctly" or "displays properly".
-- Add up to two "After step N: ..." lines before it only when a step has an outcome that matters on its own, such as a confirmation after a bulk upload or a state change that later steps depend on. Do not write an expected result for trivial steps like opening a page or clicking a button.
+- Each expected result must be something an assertion can check (text, state, visibility, count, URL). Avoid "works correctly" or "displays properly".
 - Cover every scenario with at least one test case. List any scenario left without a case.
 - Never edit rows with Origin `Human`, never delete rows, and never change Status.

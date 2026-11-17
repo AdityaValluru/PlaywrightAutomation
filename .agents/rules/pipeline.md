@@ -51,7 +51,10 @@ Each feature has a folder `docs/features/<feature>/` with these files:
 ## Git
 
 - Work only on a feature branch (for example `qa/<feature>-automation`). If the current branch is main or master, stop and ask.
-- Commit only when the human says so. Never push. Never create a PR unless the human explicitly asks in the current session.
+- Commit only through the `checkpoint-commit` skill, after the human approves the file list and the message. Never push. Never create a PR unless the human explicitly asks in the current session.
+- Checkpoint commits use the local `git` command in the terminal. GitHub MCP tools that write to the remote (`push_files`, `create_or_update_file`, `delete_file`, `merge_pull_request`) are never used. Keep them disabled in the MCP settings.
+- After you finish any pipeline stage and tell the human what to review, offer a checkpoint commit labelled `ai-draft`. After the human has reviewed and edited, they ask for one labelled `reviewed`.
+- Never run `git push`, `git reset`, `git rebase`, `git clean`, or any force option.
 
 ## Running tests
 
@@ -70,7 +73,7 @@ Each feature has a folder `docs/features/<feature>/` with these files:
 - Write only with an Excel library (Apache POI if the framework uses it, otherwise Python `openpyxl`), cell by cell. Never recreate the workbook, delete sheets, delete rows, or break the dropdowns. Retire rows by asking the human to set Status to Retired.
 - AI adds rows with Origin `AI` and Status `Draft`. Only the human sets Status to Reviewed, Approved, or Retired.
 - AI may fill only these columns on existing rows: Automated Test, Last Result, Last Run Date. Execution Log rows are never edited, except the Defect ID column, which may be filled once.
-- If a lock file like `~$test-cases.xlsx` exists, the file is open in Excel. Stop and ask the human to close it.
+- If a lock file exists next to the workbook (`~$test-cases.xlsx` from Excel, or `.~lock.test-cases.xlsx#` from LibreOffice), the file is open. Stop and ask the human to save and close it.
 - Before the first write in a stage, remind the human to commit the workbook. Excel diffs are not readable, so the commit is the backup.
 - Rows with IDs ending in `000` are format examples. Ignore them.
 
