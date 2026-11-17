@@ -21,7 +21,7 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
    | Automate | Yes or No, from the plan |
    | Preconditions, Test Data | State before the test and the values or where they come from |
    | Steps | Numbered, one user action per line, inside the one cell |
-   | Expected Result | Specific and observable |
+   | Expected Result | States the final outcome of the test; specific and observable |
    | Expected Result Source | The SRS section it comes from |
    | Cleanup | How to return to a clean state |
    | Origin, Status | `AI`, `Draft` |
@@ -33,6 +33,7 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
 ## Rules
 
 - Expected results come from the SRS, never from guessing how the app behaves. If the SRS does not say, write `UNSPECIFIED: needs human decision` and do not invent a value.
-- Each expected result must be something an assertion can check (text, state, visibility, count, URL). Avoid "works correctly" or "displays properly".
+- Expected Result must state the final outcome of the test. Each expected result must be something an assertion can check (text, state, visibility, count, URL). Avoid "works correctly" or "displays properly".
+- Add up to two "After step N: ..." lines before it only when a step has an outcome that matters on its own, such as a confirmation after a bulk upload or a state change that later steps depend on. Do not write an expected result for trivial steps like opening a page or clicking a button.
 - Cover every scenario with at least one test case. List any scenario left without a case.
 - Never edit rows with Origin `Human`, never delete rows, and never change Status.
