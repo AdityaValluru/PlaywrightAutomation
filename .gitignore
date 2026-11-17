@@ -1,0 +1,27 @@
+# ============================================================================
+# .gitignore for Playwright Java Automation Framework
+# ============================================================================
+
+# --- Build output ---
+target/
+
+# --- Reports & logs (generated at runtime) ---
+reports/*.html
+reports/*.json
+reports/screenshots/*.png
+logs/*.log
+logs/*.log.gz
+
+# --- IDE ---
+.classpath
+.project
+.settings/
+*.iml
+.idea/
+node_modules/
+scratch/
+cp.txt
+
+# --- OS ---
+.DS_Store
+Thumbs.db

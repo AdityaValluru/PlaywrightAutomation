@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Log4j2 Configuration for the Playwright UI Automation Framework.
+
+    Appenders:
+      ConsoleAppender  — writes INFO+ messages to STDOUT
+      FileAppender     — writes INFO+ messages to a daily rolling log file
+
+    Loggers:
+      com.framework    — INFO level, directed to both appenders
+      Root             — WARN level (suppresses noisy third-party library output)
+-->
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <!-- Log directory (resolved at runtime relative to the project root) -->
+        <Property name="LOG_DIR">${sys:user.dir}/logs</Property>
+        <!-- Standard log entry format: timestamp [thread] LEVEL logger - message -->
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-20thread] %-5level %-40logger{1.} - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+
+        <!-- ================================================================ -->
+        <!-- Console Appender                                                  -->
+        <!-- ================================================================ -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <!-- Suppress DEBUG and TRACE messages from the console -->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+
+        <!-- ================================================================ -->
+        <!-- Rolling File Appender                                             -->
+        <!-- Rolls over daily and when file size exceeds 10 MB.               -->
+        <!-- Keeps a maximum of 30 archived log files.                        -->
+        <!-- ================================================================ -->
+        <RollingFile name="FileAppender"
+                     fileName="${LOG_DIR}/automation.log"
+                     filePattern="${LOG_DIR}/automation_%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!-- Roll at midnight each day -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- Roll when the file exceeds 10 MB -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- Keep at most 30 archived files -->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- Framework logger: captures all com.framework.* log output -->
+        <Logger name="com.framework" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <!-- Playwright internal logging (suppress to WARN to reduce noise) -->
+        <Logger name="com.microsoft.playwright" level="WARN" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <!-- Root logger: WARN level for all other libraries -->
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>

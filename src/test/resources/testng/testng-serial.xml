@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+    testng-serial.xml — TestNG launcher for ALL test suites sequentially.
+
+    Runs every test group (smoke + regression + sanity) across all page test classes.
+-->
+<suite name="All Tests Suite Sequential" verbose="1">
+
+    <!-- Register the TestNG listener for Extent Report integration -->
+    <listeners>
+        <listener class-name="com.framework.listeners.TestNGListener"/>
+    </listeners>
+
+    <!-- ================================================================ -->
+    <!-- All Page Tests                                                    -->
+    <!-- ================================================================ -->
+    <test name="All Pages — All Tests" preserve-order="true">
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="regression"/>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.framework.tests.loginpage.LoginPageTest"/>
+            <class name="com.framework.tests.homepage.HomePageTest"/>
+            <class name="com.framework.tests.tablespage.TablesTest"/>
+        </classes>
+    </test>
+
+</suite>
