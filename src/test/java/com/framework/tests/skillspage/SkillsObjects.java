@@ -9,12 +9,14 @@ import java.util.regex.Pattern;
 
 /**
  * Object Repository for the Skills UI Page and related modals.
- * Provides static methods returning Playwright Locators using framework standards.
+ * Provides static methods returning Playwright Locators using framework
+ * standards.
  */
 public final class SkillsObjects {
 
     /** Prevent instantiation of this object-repository class. */
-    private SkillsObjects() {}
+    private SkillsObjects() {
+    }
 
     // =========================================================================
     // NAVIGATION
@@ -41,7 +43,8 @@ public final class SkillsObjects {
 
     /** Skill selection combobox filter. */
     public static Locator getSkillCombobox() {
-        return PlaywrightUtils.locateByRole(AriaRole.COMBOBOX, new Page.GetByRoleOptions().setName("Search or select a skill"));
+        return PlaywrightUtils.locateByRole(AriaRole.COMBOBOX,
+                new Page.GetByRoleOptions().setName("Search or select a skill"));
     }
 
     /** Open button for the skill selection dropdown. */
@@ -56,7 +59,8 @@ public final class SkillsObjects {
 
     /** A specific skill option in the dropdown listbox. */
     public static Locator getSkillOption(String skillName) {
-        return PlaywrightUtils.locateByRole(AriaRole.OPTION, new Page.GetByRoleOptions().setName(skillName).setExact(true));
+        return PlaywrightUtils.locateByRole(AriaRole.OPTION,
+                new Page.GetByRoleOptions().setName(skillName).setExact(true));
     }
 
     /** All option elements in the active listbox dropdown. */
@@ -70,12 +74,14 @@ public final class SkillsObjects {
 
     /** Matching employees table container. */
     public static Locator getMatchingEmployeesTable() {
-        return PlaywrightUtils.locateByRole(AriaRole.TABLE, new Page.GetByRoleOptions().setName("Employees matching selected skill"));
+        return PlaywrightUtils.locateByRole(AriaRole.TABLE,
+                new Page.GetByRoleOptions().setName("Employees matching selected skill"));
     }
 
     /** Table column header by accessible name. */
     public static Locator getTableColumnHeader(String headerName) {
-        return PlaywrightUtils.locateByRole(AriaRole.COLUMNHEADER, new Page.GetByRoleOptions().setName(headerName));
+        return PlaywrightUtils.locateByRole(AriaRole.COLUMNHEADER,
+                new Page.GetByRoleOptions().setName(headerName).setExact(true));
     }
 
     /** Data rows inside the employee table. */
@@ -86,13 +92,15 @@ public final class SkillsObjects {
     /** Clickable employee name button/link within the table rows. */
     public static Locator getEmployeeNameButton(String employeeName) {
         return PlaywrightUtils.locateByRole(AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName(Pattern.compile("View " + employeeName + " details", Pattern.CASE_INSENSITIVE)));
+                new Page.GetByRoleOptions()
+                        .setName(Pattern.compile("View " + employeeName + " details", Pattern.CASE_INSENSITIVE)));
     }
 
     /** First available clickable employee name button in the table. */
     public static Locator getFirstEmployeeNameButton() {
         return PlaywrightUtils.locateByRole(AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName(Pattern.compile("^View .* details$", Pattern.CASE_INSENSITIVE))).first();
+                new Page.GetByRoleOptions().setName(Pattern.compile("^View .* details$", Pattern.CASE_INSENSITIVE)))
+                .first();
     }
 
     /** Heading on the Employee Details page after navigation. */
@@ -106,17 +114,20 @@ public final class SkillsObjects {
 
     /** Action button to open Add / Manage Skills dialog. */
     public static Locator getAddManageSkillsButton() {
-        return PlaywrightUtils.locateByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Add / Manage Skills"));
+        return PlaywrightUtils.locateByRole(AriaRole.BUTTON,
+                new Page.GetByRoleOptions().setName("Add / Manage Skills"));
     }
 
     /** Add or Manage Employee Skills dialog modal container. */
     public static Locator getAddManageSkillsDialog() {
-        return PlaywrightUtils.locateByRole(AriaRole.DIALOG, new Page.GetByRoleOptions().setName("Add or Manage Employee Skills"));
+        return PlaywrightUtils.locateByRole(AriaRole.DIALOG,
+                new Page.GetByRoleOptions().setName("Add or Manage Employee Skills"));
     }
 
     /** Employee search/select combobox in the modal. */
     public static Locator getModalEmployeeCombobox() {
-        return PlaywrightUtils.locateByRole(AriaRole.COMBOBOX, new Page.GetByRoleOptions().setName("Search and select employee"));
+        return PlaywrightUtils.locateByRole(AriaRole.COMBOBOX,
+                new Page.GetByRoleOptions().setName("Search and select employee"));
     }
 
     /** Open button for employee selection in modal. */
@@ -127,12 +138,18 @@ public final class SkillsObjects {
     /** Specific employee option in modal dropdown. */
     public static Locator getModalEmployeeOption(String employeeIdentifier) {
         return PlaywrightUtils.locateByRole(AriaRole.OPTION,
-                new Page.GetByRoleOptions().setName(Pattern.compile(Pattern.quote(employeeIdentifier), Pattern.CASE_INSENSITIVE)));
+                new Page.GetByRoleOptions()
+                        .setName(Pattern.compile(Pattern.quote(employeeIdentifier), Pattern.CASE_INSENSITIVE)));
     }
 
     /** First employee option in modal dropdown. */
     public static Locator getModalFirstEmployeeOption() {
         return PlaywrightUtils.locateByRole(AriaRole.OPTION).first();
+    }
+
+    /** All skill combobox inputs in the modal. */
+    public static Locator getModalSkillInputs() {
+        return PlaywrightUtils.locateByRole(AriaRole.COMBOBOX, new Page.GetByRoleOptions().setName("Skill"));
     }
 
     /** Skill combobox input in the modal (default first row). */
@@ -147,12 +164,16 @@ public final class SkillsObjects {
 
     /** Skill Experience spinbutton input in the modal (default first row). */
     public static Locator getModalExperienceInput() {
-        return PlaywrightUtils.locateByRole(AriaRole.SPINBUTTON, new Page.GetByRoleOptions().setName("Skill Experience (years)")).first();
+        return PlaywrightUtils
+                .locateByRole(AriaRole.SPINBUTTON, new Page.GetByRoleOptions().setName("Skill Experience (years)"))
+                .first();
     }
 
     /** Skill Experience spinbutton input in the modal by row index. */
     public static Locator getModalExperienceInput(int index) {
-        return PlaywrightUtils.locateByRole(AriaRole.SPINBUTTON, new Page.GetByRoleOptions().setName("Skill Experience (years)")).nth(index);
+        return PlaywrightUtils
+                .locateByRole(AriaRole.SPINBUTTON, new Page.GetByRoleOptions().setName("Skill Experience (years)"))
+                .nth(index);
     }
 
     /** Add another skill button in modal. */

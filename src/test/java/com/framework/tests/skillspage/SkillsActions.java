@@ -314,6 +314,16 @@ public class SkillsActions extends BasePage {
     }
 
     /**
+     * Retrieves the count of skill rows currently present in the modal.
+     *
+     * @return count of skill rows
+     */
+    public int getModalSkillRowsCount() {
+        log.info("Counting skill rows in modal");
+        return SkillsObjects.getModalSkillInputs().count();
+    }
+
+    /**
      * Clicks "Add another skill" in the modal.
      *
      * @return this instance for method chaining
