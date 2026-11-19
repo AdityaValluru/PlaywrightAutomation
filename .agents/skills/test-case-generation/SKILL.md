@@ -8,7 +8,7 @@ description: Stage 4 of the QA pipeline. Converts approved scenarios and the app
 ## Steps
 
 1. Check that `02-scenarios.md` and `03-test-plan.md` both have status `Approved`. If not, stop and say so.
-2. Open `docs/features/<feature>/test-cases.xlsx`. If it does not exist, copy `docs/features/_template/test-cases.xlsx` there. If a lock file such as `~$test-cases.xlsx` exists, the file is open in Excel: stop and ask the human to close it.
+2. Open `docs/features/<feature>/test-cases.xlsx`. If it does not exist, copy `docs/features/_template/test-cases.xlsx` there. If a lock file exists next to the workbook (`~$test-cases.xlsx` from Excel, or `.~lock.test-cases.xlsx#` from LibreOffice), the file is open: stop and ask the human to save and close it.
 3. Remind the human to commit the current workbook first, so the previous version can be recovered.
 4. Read the existing rows before writing. Add new rows only below the last used row and continue IDs from the highest `TC-` number. Do not touch existing rows.
 5. Fill these columns for each new row:
